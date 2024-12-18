@@ -1,0 +1,9 @@
+This File Contains the task given for Week 1
+
+Date: 16/Dec/2024 to 21/Dec/2024
+
+Tasks
+     |___ Install MiniKube
+     |___ Install Docker
+     |___ Learn K8s
+      

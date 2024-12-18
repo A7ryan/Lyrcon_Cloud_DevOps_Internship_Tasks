@@ -1,0 +1,89 @@
+# start the Cluster
+minikube start
+
+# get pods
+kubectl get po -A
+
+# if Kubectl NOT installed
+minikube kubectl --get po -A
+
+# open minikube (local) kubernetes dashboard
+minikube dashboard
+
+# ____________________ Deploy Applications ___________________
+
+# type: service
+
+# create deployment
+kubectl create deployment hello-minikube --image=kicbase/echo-server:1.0
+
+# expose it to port 8080
+kubectl expose deployment hello-minikube --type=NodePort --port=8080
+
+# check out the running service (output may delay)
+kubectl service hello-minikube
+
+# forward the port (optional)
+kubectl port-forward service/hello-minikube 7080:8080
+# test app on http://localhost:7080
+
+
+# type: loadbalancer
+
+# use minikube tunnel
+kubectl create deployment balanced --image=kicbase/echo-server:1.0
+
+# expose the app
+kubectl expose deloyment balanced --type=LoadBalancer --port=8080
+
+# open in new terminal (don't exit current terminal)
+minikube tunnel
+
+# examine external-ip
+kubectl get services balanced
+
+
+# type: ingress
+
+# enable ingress addon
+minikube addons enable ingress
+
+# apply the content
+kubectl apply -f https://storage.googleapis.com/minikube-site-examples/ingress-example.yaml
+
+# get ingress address (output may delay) 
+# NOTE: docker desktop users check next step
+kubectl get ingress
+
+# docker desktop users
+# use 127.0.0.1 instead of ip you got from (kubectl get ingress) command
+# eg.
+
+curl 127.0.0.1/foo
+
+curl 127.0.0.1/bar
+
+
+# ____________________ Manage Cluster ____________________
+
+# pause kubernetes
+minikube pause
+
+# unpause (resume) kubernetes
+minikube unpause
+
+# halt (stop) kubernetes cluster
+minikube stop
+
+# change memory limit (changes default memory and requires restart)
+minikube config set memory 9001
+# don't forget to reset this after demo
+
+# check installed kubernetes services
+minikube addons list
+
+# create another cluster running on older kubernetes release
+minikube start -p aged --kubernetes-version=v1.16.1
+
+# delete all minikube clusters (wrap up)
+minikube delete --all
