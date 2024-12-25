@@ -1,1 +1,92 @@
+# if your docker image is present in Private DockerHub repo
+# you will find some auth challenges to pull that images.
+
+# so here are 3 ways to pull an image from Private DockerHub Repo.
+
+# ------- Easy and Straightforward --------------------
+However on my pc 'coz of auth reasons this don't suppoet.
+You can try if it works for you as it's very simple.
+
+# 1. Source: https://stackoverflow.com/questions/38095551/how-can-i-pull-a-docker-image-from-a-private-docker-hub-repo-remotely
+
+
+
+
+
+
+
+
+
+
+
+# ------- Create a kubernetes Secret File -------------
+
+
+# 2. Source: https://engr-syedusmanahmad.medium.com/how-to-use-kubernetes-secret-to-pull-private-docker-images-from-dockerhub-a33609e30833
+
+kubectl create secret docker-registry __your_registry_name__ --docker-username='' --docker-password='' --docker-email=''
+
+# you can write any name for your secret file, make sure to remember it
+# all other data is same from dockerhub.
+
+# make sure to change .yaml file
+type under deployment.yaml -> spec :
+
+        imagePullSecrets:
+          - name: your_registry_name
+
+# finally, apply the file
+eg. kubectl apply -f deployment.yaml
+
+# congratulations, if you want to delete the secret file use below command!
+kubectl delete secret my-registry-secret
+
+
+# Disadvantage: You will directly type your: username, password, email in shell which can be
+#               risky sometimes as if shell has its history stored.
+# Use next approach for better security
+
+
+
+
+
+
+
+
+
+# ------- Create a kubernetes Secret File + JSON File -------------
+# 3. https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/#registry-secret-existing-credentials
+
+
+1. Create a json file like: docker-credentials.json
+
+{
+  "auths": {
+    "https://index.docker.io/v1/": {
+      "username": "",
+      "password": "",
+      "email": ""
+    }
+  }
+}
+
+
+2. Build a Kubernetes secret file from this
+
+kubectl create secret generic regcred \
+    --from-file=.dockerconfigjson=docker-credentials.json \
+    --type=kubernetes.io/dockerconfigjson
+
+# NOTE: make your to rename docker-credentials.json with your file.json
+
+# verify file has been created or not
+kubectl get secret regcred --output=yaml
+
+# don't forget to change the .yaml again
+# type under deployment.yaml -> spec :
+imagePullSecrets:
+- name: regcred
+
+
+# I believe this is more safer. However, have server side encryptions and other methods of security
 
