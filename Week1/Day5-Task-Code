@@ -1,0 +1,39 @@
+# prerequisites
+
+- create dockerhub account
+- install docker in local machine
+
+# check images
+docker images
+
+# check Week 1 : Day 4 for Docker image
+
+# basic 1 - build docker image (for local development)
+  |
+  -- syntax: docker build -t (tag-name) -f (file-name)
+  -- eg: docker build -t my-node-server:latest -f Dockerfile .
+  -- NOTE: write . in code if your terminal is same dir as Dockerfile
+
+# DockerHub (login) | Remember: UserName, Password, Email Id
+# create a public repo eg. myDemo
+
+# push image to dockerhub public repo
+# before that build image
+
+# it will automatically let you login
+docker login
+
+docker build -t abc/myDemo:latest .
+
+# Note: replace abc with DockerHub Username
+      # replace myDemo with your public repo name
+      # :latest here is just a tag
+      # . specifies dockerfile is in same dir
+
+# Now push the image to dockerhub
+docker push abc/myDemo:latest
+
+# congratulatons, check your dockerhub browser to verify
+
+# Note: It's only for Pushing to Public Repo
+# See, Week 2: Day 1 for uploading Docker image to Private DockerHub
