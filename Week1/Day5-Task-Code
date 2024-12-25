@@ -34,6 +34,3 @@ docker build -t abc/myDemo:latest .
 docker push abc/myDemo:latest
 
 # congratulatons, check your dockerhub browser to verify
-
-# Note: It's only for Pushing to Public Repo
-# See, Week 2: Day 1 for uploading Docker image to Private DockerHub
