@@ -50,3 +50,6 @@ ________________________________________________________________________________
 12. Save the firewall rule and test the connection again.
 
 # There is a video which will give the project idea
+
+1. You need to create a dashboard to just call the API to view all services from VMs.
+2. Also add a search by Service Option to make it more better.
