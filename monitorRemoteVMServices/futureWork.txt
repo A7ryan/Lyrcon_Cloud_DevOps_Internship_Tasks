@@ -1,0 +1,33 @@
+# If you feel that the API is needed to be secure you can use Auth
+
+from flask_httpauth import HTTPBasicAuth
+
+app = Flask(__name__)
+auth = HTTPBasicAuth()
+
+users = {
+    "admin": "admin",
+}
+
+@auth.verify_password
+def verify_password(username, password):
+    if username in users and users[username] == password:
+        return username
+
+Now just add the auth just below the http method
+E.g.
+@app.route('/service_status', methods=['GET'])
+@auth.login_required
+
+@app.route('/service_status/<service_name>', methods=['GET'])
+@auth.login_required
+
+Now when you call api, e.g. here using curl then type:
+curl -u admin:admin http://<VM_IP>/service_status
+or
+curl -u admin:admin http://<VM_IP>/service_status/cron.service
+
+
+________________________________________________________________________________________________________________________________________
+
+# Create a dashboard as per requirements to Monitor the services on your local pc or master server
