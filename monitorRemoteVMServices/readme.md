@@ -1,24 +1,26 @@
 # Flask API Service to Monitor VM Services
 # Instead of logging into each VM via SSH to check service statusess, this API enables you to check if a specific service is running by accessing an endpoint through the public IP of the VM.
 
-     __________                            _____________
-    |   VM 1   |                          |     VM 2     |
-    |          |                          |              |
-    |  Service |                          |  Service     |
-    |   1      |                          |   1          |
-    |  Service |                          |  Service     |
-    |   2      |                          |   2          |
-    |  Service |                          |  Service     |
-    |   n      |                          |   n          |
-    -----------                           -------------
-        |                                          |
-        |                                          |
-        |                                          |
-         _______________________________________________________
-        |  http://<PUBLIC-IP-VM1>/service_status                |
+     ____________                          _____________                           ________________
+    |   VM 1     |                        |     VM 2     |                         |     VM N     |
+    |            |                        |              |                         |              |
+    |  Service 1 |                        |   Service 1  |                         |   Service 1  |
+    |            |                        |              |                         |              |
+    |  Service 2 |                        |   Service 2  |                         |   Service 2  |
+    |            |                        |              |                         |              |  
+    |  Service n |                        |   Service n  |                         |   Service n  | 
+    |            |                        |              |                         |              |
+     ------------                          --------------                           --------------
+        |                                          |                                       |
+        |                                          |                                       |
+        |                                          |                                       |
+         _______________________________________________________                           |
+        |  http://<PUBLIC-IP-VM1>/service_status                |  <-----------------------
         |  http://<PUBLIC-IP-VM2>/service_status                |
+        |  http://<PUBLIC-IP-VMn>/service_status                |
         |  http://<PUBLIC-IP-VM1>/service_status/<service_name> |
         |  http://<PUBLIC-IP-VM2>/service_status/<service_name> |
+        |  http://<PUBLIC-IP-VMn>/service_status/<service_name> |
         |_______________________________________________________|
 
 
