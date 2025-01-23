@@ -30,11 +30,3 @@ sudo systemctl enable apache2
 sudo systemctl start apache2
 
 echo "Web hosting task completed successfully!"
-
-# Give exe permission to the script
-chmod +x automatedWebScript.sh
-
-# Run the script
-./automatedWebScript.sh
-
-echo "Scipt execution successful!"
