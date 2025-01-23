@@ -10,11 +10,11 @@ sudo apt install -y apache2
 cd /var/www/html
 
 # Remove the existing index.html file
-sudo rm index.html
+sudo rm -f index.html
 
 # Create a new index.html file with the specified content
 sudo bash -c 'cat > index.html <<EOF
-<!Doctype html>
+<!DOCTYPE html>
 <html>
 <head>
 <title>Automated Website</title>
