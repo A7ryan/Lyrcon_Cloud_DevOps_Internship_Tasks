@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: server1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: server
+  template:
+    metadata:
+      labels:
+        app: server
+    spec:
+      containers:
+      - name: nginx
+        image: a7ryan/cloudenv:server1Image 
+        ports:
+        - containerPort: 80
+
+
+# ip -> 10.244.0.7
